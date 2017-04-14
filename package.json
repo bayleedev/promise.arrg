@@ -1,0 +1,11 @@
+{
+  "name": "promise",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:blainesch/promise.arrg.git",
+  "author": "Blaine Schmeisser <blainesch@gmail.com>",
+  "license": "Unlicense",
+  "scripts": {
+    "start": "node index.js"
+  }
+}

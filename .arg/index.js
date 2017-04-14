@@ -27,9 +27,9 @@ class Treasure {
   giveToCrew () {
     return new Promise((resolve) => {
       if (this.size === 10) {
-        throw new Exception([
-          'You gave us the smallest treasure! We revolt against the upper class (you) and take everything!'
-          '6) Instead of the first treasure, try giving your crew the biggest treasure!'
+        throw new Error([
+          'You gave us the smallest treasure! We revolt against the upper class (you) and take everything!',
+          '6) Instead of the first treasure, try giving your crew the biggest treasure!',
           'TIP: If you `console.log()` a treasure you can see the size!',
         ].join('\n'))
       }
@@ -37,14 +37,20 @@ class Treasure {
         return Math.max(memo, treasure.size)
       }, 0)
       if (this.size !== biggest) {
-        throw new Exception([
-          'You didnt give us the biggest treasure! We revolt against the upper class (you) and take everything!'
-          '6) Try giving your crew the biggest treasure!'
+        throw new Error([
+          'You didnt give us the biggest treasure! We revolt against the upper class (you) and take everything!',
+          '6) Try giving your crew the biggest treasure!',
           'TIP: If you `console.log()` a treasure you can see the size!',
         ].join('\n'))
       }
       setTimeout(() => {
-        resolve(200)
+        resolve([
+          'Yar har, fiddle di dee,',
+          'Being a pirate is alright with me!',
+          'Do what you want cause a pirate lives free,',
+          'You are a pirate!',
+          'LOL LIMEWIRE',
+        ].join('\n'))
       }, random(50, 250))
     })
   }
@@ -53,14 +59,16 @@ class Treasure {
 const capin = {
   generateGreeting () {
     return new Promise((resolve) => {
-      setTimeout(resolve.bind(this, "Arggg!"), 100)
+      setTimeout(resolve.bind(this, "Yar har fiddely dee! Do what you want cause a priate is a free!"), 100)
     })
   },
   generateTreasureMap () {
     return new Promise((resolve) => {
-      const treasureMap = new TreasureMap
-      globals.treasureMapList.push(treasureMap)
-      resolve(treasureMap)
+      setTimeout(() => {
+        const treasureMap = new TreasureMap
+        globals.treasureMapList.push(treasureMap)
+        resolve(treasureMap)
+      }, random(50, 250))
     })
   },
 }
@@ -71,33 +79,33 @@ const crew = {
   findTreasure (treasureMap) {
     return new Promise((resolve) => {
       if (Array.isArray(treasureMap)) {
-        throw new Exception('I want a TreasureMap not an array!')
+        throw new Error('Arrg! We want a TreasureMap not an array!')
       }
-      if (!(map instanceof TreasureMap)) {
-        throw new Exception('I can only take a TreasureMap!')
+      if (!(treasureMap instanceof TreasureMap)) {
+        throw new Error('Arrg! We can only take a TreasureMap!')
       }
       if (globals.treasureMapList.length === 1) {
-        throw new Exception([
+        throw new Error([
           'The crew faught over the map and accidentally broke it!',
-          '4) Try generating 3 maps before giving it to your crew!',
+          '4) Try generating 3 maps before giving one to your crew!',
           'TIP: Promise.all()',
         ].join('\n'))
       }
       if (globals.treasureMapList.length !== 3) {
-        throw new Exception([
+        throw new Error([
           'The crew faught over the maps and accidentally broke them!',
-          '4) Try generating 3 maps before giving it to your crew!',
+          '4) Try generating 3 maps before giving one to your crew!',
           'TIP: Promise.all()',
         ].join('\n'))
       }
       setTimeout(() => {
         const treasure = new Treasure()
-        treasuresFound++
-        globals.treasuresList(treasure)
+        crew.treasuresFound++
+        globals.treasureList.push(treasure)
         resolve(treasure)
-      }, random(50, 250))
+      }, 50)
     })
   }
 }
 
-module.export = { crew, capin }
+module.exports = { crew, capin }
