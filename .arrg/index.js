@@ -1,3 +1,5 @@
+const { exec } = require('child_process')
+
 const globals = {
   treasureMapList: [],
   treasureList: [],
@@ -44,6 +46,7 @@ class Treasure {
         ].join('\n'))
       }
       setTimeout(() => {
+        exec('open https://giphy.com/gifs/limewire-jAIMoGYmxMsMw')
         resolve([
           'Yar har, fiddle di dee,',
           'Being a pirate is alright with me!',
